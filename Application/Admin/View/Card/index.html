@@ -1,0 +1,23 @@
+<include file="Public/header" title="创建卡券" />
+<script src="__STATIC__/js/jquery-1.10.2.js"></script>
+<script src="__STATIC__/js/layer/layer.js"></script>
+
+
+<div id="page-wrapper">
+   <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+			<p>请选择所要创建卡券的类型</p>
+			<form action="{:U('card/create')}" method="post">
+				<span>普通卡券</span><input type="radio" name="types" value="normal">
+				<span style="margin-left:15px">与朋友共享的券</span><input type="radio" name="types" value="share">
+				<div style="margin-top:15px">
+					<input type="hidden" name="step" value="one">
+					<input type="submit" name="subs" value="下一步">
+				</div>
+			</form>
+	  </div> 
+   </div>
+</div>
+
+
+<include file="Public/footer" />

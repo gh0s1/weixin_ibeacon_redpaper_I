@@ -1,0 +1,48 @@
+<include file="Public/header" title="" />
+
+<script src="__STATIC__/js/jquery-1.10.2.js"></script>
+
+<style>
+  table {
+	text-align:center
+  }
+  table thead  tr td{
+	font-size:12px;
+	font-weight:bold
+  }
+  
+  table tr td {
+	width:auto;
+	font-size:6px;
+	white-space: nowrap;
+  }
+</style>
+
+<div id="page-wrapper">
+    
+    <table class="table table-hover" style="margin-left:-30px;">
+		<thead>
+            <tr>
+                <td>序号</td>
+                <td>公众号ID</td>
+				<td>公众号昵称</td>
+				<td>签到天数</td>
+				<td>更新时间</td>
+            </tr>
+		</thead>
+        <?php
+			foreach($lists as  $val):
+		?>
+            <tr>
+                <td>{$val['id']}</td>
+                <td>{$val['openid']}</td>
+                <td>{$val['nickname']}</td>
+				<td>{$val['days']}</td>
+				<td><?php echo date("Y/m/d",$val['updatetime'])?></td>
+        <?php
+			endforeach;
+		?>
+    </table>
+    {$page}
+</div>
+<include file="Public/footer" />

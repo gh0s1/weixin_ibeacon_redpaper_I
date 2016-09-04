@@ -1,0 +1,145 @@
+<include file="Public/header" title="摇一摇红包" />
+
+<script src="__STATIC__/js/jquery-1.10.2.js"></script>
+<script src="__STATIC__/js/laydate/laydate.js"></script>
+
+
+<div id="page-wrapper">
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="javascript:void(0)" class="btn btn-success">创建红包活动</a>
+        </div>
+    </div>
+   
+	<!--
+    <table class="table table-hover table-striped"  style="">
+        <thead>
+            <tr>
+                <td>编号</td>
+                <td>用户名</td>
+                <td>邮箱</td>
+                <td>注册时间</td>
+                <td>上次登陆</td>
+                <td>登陆IP</td>
+                <td>类型</td>
+                <td>状态</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+        <foreach name="member" item="v">
+            <tr>
+                <td>{$v.id}</td>
+                <td>{$v.username}</td>
+                <td>{$v.email}</td>
+                <td>{$v.create_at|date="Y/m/d H:i:s",###}</td>
+                <td>{$v.update_at|date="Y/m/d H:i:s",###}</td>
+                <td>{$v.login_ip}</td>
+                <td>
+                    <if condition="$v.type eq 1"> <span class="label label-success">会员</span>
+                    <elseif condition="$v.type eq 2"/><span class="label label-danger">管理员</span>
+                    </if>
+                </td> 
+                <td><if condition="$v.status eq 1">正常<else/><span style="color:red">禁用</span></if></td>
+                <if condition="$v.status eq 1">	
+                	<td><a href="{:U('member/update?id=')}{$v.id}">编辑</a> | <a href="{:U('member/delete?id=')}{$v.id}" style="color:red;" onclick="javascript:return del('禁用后用户将不能登陆后台!\n\n请确认!!!');">禁用</a></td>
+            	<else/>
+            		<td><a href="{:U('member/update?id=')}{$v.id}">编辑</a> | <a href="{:U('member/delete?id=')}{$v.id}" style="color:#50AD1E;">启用</a></td>
+            	</if>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+	
+	-->
+	
+	
+	<style>
+	  #infos {
+		width:100%;
+		height:100%;
+	  }
+	  
+	  #infos form {
+		margin:0px;
+		margin-top:20px;
+		margin-left:-50px;
+		padding:0px;
+		width:100%;
+	  }
+	  
+	  
+	  #infos form ul {
+		width:90%;
+		height:auto;
+		line-height:30px;
+		list-style:none;
+	  }
+	  
+	  #infos form ul li {
+		margin-bottom:20px;
+	  } 
+	  
+	  #infos form ul li input{
+		width:20%;
+		height:30px;
+	  }
+	  
+	</style>
+	
+	<script>
+		function check(){
+			var title = $("#title").val();
+			var desc = $("#desc").val();
+			var begin_time = $("#begin_time").val();
+			var expire_time = $("#expire_time").val();	
+			var total = $("#total").val();
+			//验证
+			
+			return true;
+		}
+	</script>
+	
+	<div id="infos">
+			
+		<form action="{:U('shake/add_activity')}" method="post" onsubmit="return check()">
+			<ul>
+				<li>
+					<span>活动名称:</span>
+					<input type="text" id="title" name="title"  placeholder="最长6个汉字，12个英文字母">
+				</li>
+				
+				<li>
+					<span>活动描述:</span>
+					<input type="text" id="desc" name="desc"  placeholder="最长7个汉字，14个英文字母">
+				</li>
+				
+				<li>
+					<span>开始时间:</span>
+					<input class="laydate-icon" type="text" id="begin_time" name="begin_time"  onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="活动开始时间">
+				</li>
+				
+				<li>
+					<span>结束时间:</span>
+					<input class="laydate-icon" type="text" id="expire_time" name="expire_time"  onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="活动结束时间">
+				</li>
+				
+				<li>
+					<span>红包总数:</span>
+					<input type="text" id="total" name="total"  placeholder="红包总数">
+				</li>
+				
+				
+				<li>
+					<input type="submit" id="subs"  name="subs" value="下一步" style="width:10%;margin-left:60px;">
+				</li>
+			
+			</ul>
+	</form>
+		
+	</div>
+	
+	</div>
+
+<include file="Public/footer" />

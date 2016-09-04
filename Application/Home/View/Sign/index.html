@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>FrozenUI Demo</title>
+        <link rel="stylesheet" href="__STATIC__/css/frozen.css">
+    </head>
+	<style>
+		body {
+			background:red
+		}
+	</style>
+    <body ontouchstart="">
+	
+	<div>
+		<div class="ui-flex ui-flex-pack-center" style="margin-top:120px;font-size:1.3em;color:yellow">
+			<div>签到页面,签到页面</div>
+		</div>
+	</div>	
+	
+	<div class="ui-flex ui-flex-pack-center" style="margin-top:30px;font-size:2em">
+		<button id="signs" class="ui-btn-s" style="width:160px;height:40px;font-size:1em;border-color:yellow;background:yellow;">
+			签到
+		</button>
+	</div>
+	
+	<div class="ui-flex ui-flex-pack-center" style="margin-top:30px;font-size:1.3em;color:yellow">
+			<div>签到记录</div>
+	</div>
+	
+	<div style="margin:0 auto;margin-top:60px;width:80%;height:200px;text-align:center;border:solid 1px yellow;background:yellow;color:red">
+	
+		<div style="width:100%;margin-top:20px;font-size:1.2em" class="ui-flex ui-flex-pack-center">
+				<div><span style="font-size:2em">{$days}</span>天</div>
+		</div>
+		
+		<div style="width:100%;margin-top:20px;" class="ui-flex ui-flex-pack-center">
+			<div>已经连续签到</div>
+		</div>
+		
+		<div style="width:100%;margin-top:20px;" class="ui-flex ui-flex-pack-center">
+			<div>青岛微商宝科技有限公司</div>
+		</div>
+	</div>
+	
+	
+	<script src="__STATIC__/lib/zepto.min.js"></script>
+	<script src="__STATIC__/js/frozen.js"></script>
+	<script src="__STATIC__/js/jquery.js"></script> 
+    </body>
+	
+	<script>
+		
+		$(function(){
+			$("#signs").click(function(){
+				$.post(
+					"{:U('sign/index')}",
+					{
+						'subs' : true,
+						'openid' : '<?php echo $openid?>',
+						'nickname' : '<?php echo $nickname?>'
+						
+					},
+					
+					function data(data){
+						
+		
+						var obj = $.parseJSON(data);
+						if(obj.status == 'success'){
+							alert(obj.infos);
+						}
+						
+						if(obj.status == 'error'){
+							alert(obj.infos);
+						}
+						
+						if(obj.status == 'hb'){
+							location.href = obj.url;
+						}
+					},
+					
+					'text'
+				);
+			});
+		});
+	</script>
+</html>   

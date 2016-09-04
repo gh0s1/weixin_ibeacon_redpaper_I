@@ -1,0 +1,95 @@
+﻿<include file="Public/header" title="摇一摇红包" />
+
+<script src="__STATIC__/js/jquery-1.10.2.js"></script>
+<script src="__STATIC__/js/laydate/laydate.js"></script>
+
+
+<div id="page-wrapper">
+
+	<style>
+	  #infos {
+		width:100%;
+		height:100%;
+	  }
+	  
+	  #infos form {
+		margin:0px;
+		margin-top:20px;
+		margin-left:-50px;
+		padding:0px;
+		width:100%;
+	  }
+	  
+	  
+	  #infos form ul {
+		width:90%;
+		height:auto;
+		line-height:30px;
+		list-style:none;
+	  }
+	  
+	  #infos form ul li {
+		margin-bottom:20px;
+	  } 
+	  
+	  #infos form ul li input{
+		width:20%;
+		height:30px;
+	  }
+	  
+	</style>
+	
+	<script>
+		function check(){
+			var title = $("#title").val();
+			var desc = $("#desc").val();
+			var begin_time = $("#begin_time").val();
+			var expire_time = $("#expire_time").val();	
+			var total = $("#total").val();
+			//验证
+			
+			return true;
+		}
+	</script>
+	
+	<div id="infos">
+			
+		<form action="{:U('sign/set')}" method="post" onsubmit="return check()">
+			<ul>
+				<li>
+					<span>签到天数:</span>
+					<input type="text" id="days" name="days"  placeholder="请输入连续签到天数">
+				</li>
+				
+				<li>
+					<span>红包金额:</span>
+					<input type="text" id="total_amount" name="total_amount"  placeholder="满设定的签到天数，所发放的红包金额">
+					<span style="color:red">(*固定红包金额)</span>
+				</li>
+				
+				<li>
+					<span>选择活动:</span>
+					<select name="lottery_id" style="height:30px;">
+						<?php
+							foreach($act_lists as $val):
+						?>
+						<option value="{$val['lottery_id']}">{$val['title']}</option>
+						<?php
+							endforeach;
+						?>
+					</select>
+				</li>
+				
+				
+				<li>
+					<input type="submit" id="subs"  name="subs" value="提交" style="width:10%;margin-left:60px;">
+				</li>
+			
+			</ul>
+	</form>
+		
+	</div>
+	
+	</div>
+
+<include file="Public/footer" />

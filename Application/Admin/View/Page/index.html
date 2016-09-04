@@ -1,0 +1,112 @@
+<include file="Public/header" title="页面列表" />
+<script src="__STATIC__/js/jquery-1.10.2.js"></script>
+<script src="__STATIC__/js/layer/layer.js"></script>
+
+
+<div id="page-wrapper">
+    
+    <div class="row">
+		
+        <div class="col-md-6">
+            <a id="add" href="javascript:void(0)" class="btn btn-success">添加页面</a>
+        </div>
+		
+		<script>
+			$(function(){
+				$("#add").click(function(){
+					layer.open({
+						title: '添加页面',
+						type: 2,
+						area: ['600px', '600px'],
+						skin: 'layui-layer-demo', //样式类名
+						closeBtn: 1, //不显示关闭按钮
+						shift: 1,
+						shadeClose: true, //开启遮罩关闭
+						scrollbar:false,
+						content: '{:U('page/addform')}'
+					});
+						
+				});
+			});
+		</script>
+	
+		
+    </div>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <!--<th>创建时间</th>-->
+                <th>页面icon</th>
+				<th>页面标题</th>
+				<th>页面副标题</th>
+                <th>备注信息</th>
+				<th>跳转url</th>
+				<th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+			foreach($page_list as  $val):
+		?>
+            <tr>
+                <!--<td>00000</td>-->
+                <td><img src="{$val['icon_url']}" style="width:80px;height:80px;"></td>
+                <td>{$val['title']}</td>
+				<td>{$val['description']}</td>
+				<td>{$val['comment']}</td>
+				<td>{$val['page_url']}</td>
+                <td>
+					<a href="javascript:void(0)" onclick="edit({$val['page_id']})" >编辑</a> |
+					<a href="javascript:void(0)" onclick="dels({$val['page_id']})" style="color:red;">删除</a>
+				</td>
+            </tr>
+        <?php
+			endforeach;
+		?>
+        </tbody>
+    </table>
+    {$page}
+</div>
+
+<script>
+	function edit(page_id){
+	
+		layer.open({
+			title: '页面编辑',
+			type: 2,
+			area: ['600px', '600px'],
+			skin: 'layui-layer-demo', //样式类名
+			closeBtn: 1, //不显示关闭按钮
+			shift: 1,
+			shadeClose: true, //开启遮罩关闭
+			scrollbar:false,
+			content: '{:U('page/editform')}&page_id='+page_id
+		});
+	}
+	
+	function dels(page_id){
+		$.post(
+			"{:U('page/del_page')}",
+			{
+				page_id : page_id,
+				subs : true
+			},
+			
+			function data(data){
+				var obj = $.parseJSON(data);
+				if(obj.errmsg == 'success.'){
+					alert('删除页面成功!!!');
+				}
+				
+				if(obj.errmsg == 'false.'){
+					alert('删除页面失败!!!');
+				}
+			},
+			
+			'text'
+		);
+	}
+</script>
+
+
+<include file="Public/footer" />

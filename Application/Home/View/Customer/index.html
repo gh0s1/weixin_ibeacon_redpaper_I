@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>FrozenUI Demo</title>
+        <link rel="stylesheet" href="__STATIC__/css/frozen.css">
+    </head>
+	<style>
+		body {
+			background:red
+		}
+	</style>
+    <body ontouchstart="">
+		<div class="ui-flex ui-flex-pack-center" style="margin-top:120px;font-size:2em;">
+			<span  style="color:white">{$nickname}</span>
+			<span style="color:yellow">获得一个大红包</span>
+		</div>
+		
+		<div class="ui-flex ui-flex-pack-center" style="margin-top:10px;font-size:2em;color:yellow">
+			<div>价值{$total_amount}元,先抢先得</div>
+		</div>
+		
+		
+		<div class="ui-flex ui-flex-pack-center" style="margin-top:40px;line-height:40px;">
+			<form action="#">
+				<div>
+					<span style="color:white">姓名</span>
+					<input id="username" style="width:300px;height:25px" type="text" name="username">
+				</div>
+				
+				<div>
+					<span style="color:white">电话</span>
+					<input id="phone" style="width:300px;height:25px;" type="text" name="phone">
+				</div>
+			</form>
+		</div>
+		
+		
+		
+		<div class="ui-flex ui-flex-pack-center ui-btn-wrap" style="margin-top:60px;">
+			<button id="btn" class="ui-btn-s" style="width:160px;height:40px;font-size:1em;border-color:yellow;background:yellow;">
+				拆红包
+			</button>
+		</div>
+		
+        <script src="__STATIC__/lib/zepto.min.js"></script>
+        <script src="__STATIC__/js/frozen.js"></script>
+		<script src="__STATIC__/js/jquery.js"></script> 
+		
+		
+		<script>
+		$(function(){
+			$("#btn").click(function(){
+				
+				var username = $("#username").val();
+				var phone = $("#phone").val();
+				
+				
+				if(username == '' && phone == ''){
+					$("#username").focus();
+					return;
+				}
+				if(username == ''){
+					alert('用户名不能为空!!');
+					$("#username").focus();
+					return;
+				}
+				
+				if(phone == ''){
+					alert('手机不能为空!!');
+					$("#phone").focus();
+					return;
+				}
+				
+				if(!phone.match(/\d{11}/g)){
+					alert('不是一个正确的手机号码');
+					$("#phone").focus();
+					return;
+				}
+			
+				
+				$.post(
+					"{:U('customer/set')}",
+					{
+						'nickname' : '<?php echo $nickname?>',
+						'username' : username,
+						'phone' : phone,
+						'lottery_id' : '<?php echo $lottery_id ?>',
+						'noncestr' : '<?php echo $noncestr ?>',
+						'openid' : '<?php echo $openid ?>',
+						'sign' : '<?php echo $sign ?>',
+						'subs' : true
+					},
+					function data(data){
+						var obj = $.parseJSON(data);
+						if(obj.status == 'ok'){
+							location.href = obj.url;
+						}
+						
+						if(obj.status == 'error'){
+							alert(obj.infos);
+						}
+					},
+					
+					'text'
+				
+				);
+				
+			});
+		});
+	</script>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+<include file="Public/header" title="卡券投放" />
+<script src="__STATIC__/js/jquery-1.10.2.js"></script>
+<script src="__STATIC__/js/layer/layer.js"></script>
+
+
+<div id="page-wrapper">
+   <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+			<p>请选择所要投放的方式</p>
+			<form action="{:U('card/uses')}" method="post">
+				<span>二维码投放</span><input type="radio" name="types" value="qrcode">
+				<span style="margin-left:15px">H5页面投放</span><input type="radio" name="types" value="h5">
+				<div style="margin-top:15px">
+					<input type="hidden" name="step" value="one">
+					<input type="submit" name="subs" value="下一步">
+				</div>
+			</form>
+	  </div> 
+   </div>
+</div>
+
+<include file="Public/footer" />

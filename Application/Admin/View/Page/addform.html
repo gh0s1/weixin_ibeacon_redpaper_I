@@ -1,0 +1,170 @@
+<script src="__STATIC__/js/jquery-1.10.2.js"></script>
+
+<style>
+  #infos {
+	width:100%;
+	height:100%;
+	
+  }
+  
+  #infos form {
+	margin:0px;
+	padding:0px;
+	width:100%;
+	height:100%;
+  }
+  
+  
+  #infos form ul {
+	width:90%;
+	height:auto;
+	line-height:60px;
+	list-style:none;
+  }
+  
+  #infos form ul li input ,select{
+	width:50%;
+	height:40px;
+  }
+  
+  #infos form ul li span {
+	width:100px;
+	float:left;
+	margin-right:-10px;
+  }
+  
+</style>
+
+<script>
+
+	function check(){
+		
+		var title  = $("#title").val();
+		var description = $("#description").val();
+		var comment = $("#comment").val();
+		var page_url = $("#page_url").val();
+		
+		var icon = $("#icon").val();
+		
+		var type = icon.substr(icon.lastIndexOf(".")+1);
+		
+	
+		if(type != 'jpg' && type != 'png' && type != 'jpeg' && type != 'bmp' && type != 'gif'){
+			
+			alert('不是一个合法的图片');
+			
+			return false;
+		}
+		
+		//验证
+		/*
+			TODO
+		*/
+		
+		
+		return true;
+	}
+</script>
+
+
+<div id="infos">
+
+	<form action="{:U('page/add')}" method="post" enctype="multipart/form-data"  onsubmit="return check()">
+			<ul>
+				<li>
+					<span>标题:</span>
+					<input type="text" id="title" name="title"  placeholder="请输入页面标题(不超过6个汉字或12个英文字母)">
+				</li>
+				
+				<li>
+					<span>副标题:</span>
+					<input type="text" id="description" name="description"  placeholder="请输入页面副标题(不超过7个汉字或14个英文字母)">
+				</li>
+				
+				<li>
+					<span>备注:</span>
+					<input type="text" id="comment" name="comment"  placeholder="请输入备注信息(不超过15个汉字或30个英文字母)">
+				</li>
+				
+				<li>
+					<span>缩略图:</span>
+					<input type="file" id="icon" name="icon"  style="width:180px">
+					<div style="float:right;color:red;font-size:10px;margin-rigth:330px;white-space:nowrap;">(*大小为不超过200*200的正方形)</div>
+				</li>
+				
+				
+				<li>
+					<span>跳转链接:</span>
+					<input type="text" id="page_url"  name="page_url"  placeholder="请输入跳转链接">
+				</li>
+				
+				<li>
+					<input type="submit" id="subs" name="subs" value="提交"  style="width:25%;margin-left:90px;">
+				</li>
+				
+				
+				
+			
+			</ul>
+	</form>
+	
+
+</div>
+
+
+
+
+
+<script>
+
+	$(function(){
+	
+		/*
+		$("#subs").click(function(){
+				var title = $("#title").val();
+				var  = $("#apply_reason").val();
+				var comment = $("#comment").val();
+				var poi_id = parseInt($("#poi_id").val());
+				var poi_name = $("#poi_id").find("option:selected").text();
+				
+				if(quantity == '' && apply_reason == '' && comment == '' && poi_id == ''){
+					$("#quantity").focus();
+					return ;
+				}
+				
+				if(quantity > 500){
+					alert('单次新增设备超过500个，需走人工审核流程');
+					$("#quantity").focus();
+					return ;
+				}
+				
+
+				$.post(
+					'<?php echo WEB_PATH?>?c=device&a=AddDevice',
+					{
+						'quantity' : quantity,
+						'apply_reason' : apply_reason,
+						'comment' : comment,
+						'poi_id' : poi_id,
+						'poi_name' :poi_name
+					},
+					
+					function data(data){
+						var obj = $.parseJSON(data);
+						if(obj.msg == 'ok'){
+							alert('添加设备成功!');
+						}
+						
+						if(obj.msg == 'err'){
+							alert('添加设备失败!!');
+						}
+					},
+					
+					'text'
+				
+				);
+		
+		});
+		*/
+	});
+</script>

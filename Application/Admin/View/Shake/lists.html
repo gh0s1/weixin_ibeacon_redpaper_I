@@ -1,0 +1,72 @@
+<include file="Public/header" title="" />
+
+<script src="__STATIC__/js/jquery-1.10.2.js"></script>
+
+<style>
+  table {
+	text-align:center
+  }
+  table thead  tr td{
+	font-size:12px;
+	font-weight:bold
+  }
+  
+  table tr td {
+	width:auto;
+	font-size:6px;
+	white-space: nowrap;
+  }
+</style>
+
+<div id="page-wrapper">
+    
+    <table class="table table-hover" style="margin-left:-30px;">
+		<thead>
+            <tr>
+                <td>创建时间</td>
+                <td>活动名称</td>
+				<td>活动描述</td>
+				<td>开始时间</td>
+				<td>结束时间</td>
+				<td>公众号ID</td>
+				<td>红包数量</td>
+				<td>固定金额</td>
+				<td>最小金额</td>
+				<td>最大金额</td>
+				<td>分发人数</td>
+				<td>祝福话语</td>
+				<td>商户名称</td>
+				<td>活动名称</td>
+				<td>活动备注</td>
+				<td>活动ID</td>
+				
+            </tr>
+		</thead>
+        <?php
+			foreach($lists as  $val):
+		?>
+            <tr>
+                <td><?php echo date("Y/m/d",$val['creattime'])?></td>
+                <td>{$val['title']}</td>
+                <td>{$val['desc']}</td>
+				<td>{$val['begin_time']}</td>
+				<td>{$val['expire_time']}</td>
+				<td>{$val['sponsor_appid']}</td>
+				<td>{$val['total']}</td>
+				<td><?php echo $val['signle_total']/100?>元</td>
+				<td><?php echo $val['min']/100?>元</td>
+				<td><?php echo $val['max']/100?>元</td>
+				<td>{$val['total_num']}</td>
+				<td>{$val['wishing']}</td>
+				<td>{$val['send_name']}</td>
+				<td>{$val['act_name']}</td>
+				<td>{$val['remark']}</td>
+				<td>{$val['lottery_id']}</td>
+            </tr>
+        <?php
+			endforeach;
+		?>
+    </table>
+    {$page}
+</div>
+<include file="Public/footer" />

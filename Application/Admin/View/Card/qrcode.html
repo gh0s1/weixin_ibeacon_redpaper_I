@@ -1,0 +1,65 @@
+<include file="Public/header" title="卡券投放" />
+<script src="__STATIC__/js/jquery-1.10.2.js"></script>
+<script src="__STATIC__/js/layer/layer.js"></script>
+
+<style>
+	#page-wrapper .row form ul li select,input {
+		margin-left:10px;
+		width:160px;
+		height:30px
+	}
+</style>
+<div id="page-wrapper">
+   <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+			<form action="{:U('card/qrcode')}" method="post">	
+				<ul class="list-group">
+				   <li class="list-group-item">
+						选择卡券	
+						<select name="card_id">
+							<?php
+								foreach($lists as $val):
+							?>
+							<option value="{$val['card_id']}">{$val['title']}</option>
+							
+							<?php
+								endforeach;
+							?>
+						</select >
+				   </li>
+				   
+				  <li class="list-group-item">
+					 领取数量
+					 <input type="text" name="nums" placeholder="请填写领取数量，默认为1">
+				  </li>
+				  
+				  
+				  <li class="list-group-item">
+					生存时间
+					<input type="text" name="expire_seconds" placeholder="60~1800秒，默认为90天">
+				  </li>
+				  
+				  <li class="list-group-item">
+					重复领取
+					<input type="radio" name="is_unique_code" value="true" style="width:50px;height:20px;">是
+					<input type="radio" name="is_unique_code" value="false" style="width:50px;height:20px;">否
+					
+				  </li>
+				  
+				  <li class="list-group-item">
+						<!--
+						<input type="hidden" name="brand_name" value="{$lists['brand_name']}">
+						<input type="hidden" name="title" value="{$lists['title']}">
+						<input type="hidden" name="logo_url" value="{$lists['logo_url']}">
+						<input type="hidden" name="card_type" value="{$lists['card_type']}">
+						-->
+						<input class="btn btn-default" style="width:100px;margin-left:70px"  type="submit" name="subs" value="生成二维码">
+				  </li>
+				  
+				</ul>
+			</form>
+	  </div> 
+   </div>
+</div>
+
+<include file="Public/footer" />

@@ -1,0 +1,136 @@
+<script src="__STATIC__/js/jquery-1.10.2.js"></script>
+
+<style>
+  #infos {
+	width:100%;
+	height:100%;
+	
+  }
+  
+  #infos form {
+	margin:0px;
+	padding:0px;
+	width:100%;
+	height:100%;
+  }
+  
+  
+  #infos form ul {
+	width:90%;
+	height:auto;
+	line-height:60px;
+	list-style:none;
+  }
+  
+  #infos form ul li input ,select{
+	width:50%;
+	height:40px;
+  }
+  
+</style>
+
+<div id="infos">
+
+	<form>
+			<ul>
+				<li>
+					<span>数量:</span>
+					<input type="text" id="quantity" name="quantity"  placeholder="请输入申请所需设备的数量">
+				</li>
+				
+				<li>
+					<span>理由:</span>
+					<input type="text" id="apply_reason" name="apply_reason"  placeholder="申请理由(不超过100个汉字或200个英文字母)">
+				</li>
+				
+				<li>
+					<span>备注:</span>
+					<input type="text" id="comment" name="comment"  placeholder="备注(不超过15个汉字或30个英文字母)">
+				</li>
+				
+				<li>
+					<span>门店:</span>
+					<select name="poi_id" id="poi_id">
+						<?php
+							foreach($pois_lists as $val):
+						?>
+						
+							<option value="{$val['base_info']['poi_id']}">{$val['base_info']['business_name']}</option>
+						
+						<?php
+						
+							endforeach;
+						?>
+						
+						<!--
+						<option value="1">门店2</option>
+						<option value="2">门店3</option>
+						-->
+					</select>
+				</li>
+				
+				<li>
+					<input type="button" id="subs" value="提交" style="width:25%;margin-left:45px;">
+				</li>
+			
+			</ul>
+	</form>
+
+</div>
+
+
+<script>
+
+	$(function(){
+		
+		$("#subs").click(function(){
+				var quantity = parseInt($("#quantity").val());
+				var apply_reason = $("#apply_reason").val();
+				var comment = $("#comment").val();
+				var poi_id = parseInt($("#poi_id").val());
+				var poi_name = $("#poi_id").find("option:selected").text();
+				
+				if(quantity == '' && apply_reason == '' && comment == '' && poi_id == ''){
+					$("#quantity").focus();
+					return ;
+				}
+				
+				if(quantity > 500){
+					alert('单次新增设备超过500个，需走人工审核流程');
+					$("#quantity").focus();
+					return ;
+				}
+				
+				//验证如下
+				/*
+					TODO
+				*/
+				
+				$.post(
+					'<?php echo WEB_PATH?>?c=device&a=AddDevice',
+					{
+						'quantity' : quantity,
+						'apply_reason' : apply_reason,
+						'comment' : comment,
+						'poi_id' : poi_id,
+						'poi_name' :poi_name
+					},
+					
+					function data(data){
+						var obj = $.parseJSON(data);
+						if(obj.msg == 'ok'){
+							alert('添加设备成功!');
+						}
+						
+						if(obj.msg == 'err'){
+							alert('添加设备失败!!');
+						}
+					},
+					
+					'text'
+				
+				);
+		
+		});
+	});
+</script>
